@@ -1,0 +1,24 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.container {
+  cursor: none;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+}
+
+img {
+  overflow: hidden;
+  width: 100%;
+  position: absolute;
+}
+
+img#loading {
+  opacity: 0;
+}
