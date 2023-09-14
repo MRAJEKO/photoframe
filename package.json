@@ -1,9 +1,9 @@
 {
   "scripts": {
     "update": "bash deploy.sh",
-    "start": "npm-run-all --parallel server dev",
+    "dev": "npm-run-all --parallel server controlpaneldev",
     "server": "node server.js",
-    "dev": "cd controlpanel && npm run dev"
+    "controlpaneldev": "cd controlpanel && npm run dev"
   },
   "dependencies": {
     "dotenv": "^16.3.1",

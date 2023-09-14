@@ -1,5 +1,6 @@
+.env
+
 node_modules
 *.code-workspace
 public/images/*
-.env.local
 deploy.sh
