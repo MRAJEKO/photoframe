@@ -99,7 +99,9 @@ const getInfo = () => {
   return JSON.stringify({ image: imagePath, nextImage: prevImagePath, text });
 };
 
-wss.on("connection", () => {
+wss.on("connection", (ws) => {
+  console.log("New client connected: " + ws._socket.remoteAddress);
+
   const info = getInfo();
 
   wss.clients.forEach((client) => {
