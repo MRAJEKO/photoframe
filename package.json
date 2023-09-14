@@ -1,5 +1,6 @@
 {
   "scripts": {
+    "start": "server",
     "update": "bash deploy.sh",
     "dev": "npm-run-all --parallel server controlpaneldev",
     "server": "node server.js",
