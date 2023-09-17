@@ -2,12 +2,15 @@ require("dotenv").config();
 const express = require("express");
 const path = require("path");
 const fs = require("fs");
+const cors = require("cors");
 const WebSocket = require("ws");
 const http = require("http");
 let config = require("./config.json");
 const { sendInfo } = require("./utils/info");
 
 const app = express();
+
+app.use(cors());
 
 app.use(express.static(path.join(__dirname, "./public")));
 
@@ -33,6 +36,8 @@ let intervalID;
 
 let nextImage = "";
 
+console.log(config.interval_rate);
+
 function startInterval() {
   intervalID = setInterval(() => {
     config = require("./config.json");
@@ -55,14 +60,16 @@ const wss = new WebSocket.Server({ server });
 wss.on("connection", (ws) => {
   console.log("New client connected: " + ws._socket.remoteAddress);
 
+  stopInterval();
+
+  sendInfo(wss, prevShownImages, nextImage);
+
   startInterval();
 });
 
 server.listen(config.port, () => {
   console.log(`Server is running on ${config.port}`);
 });
-
-console.log("Server started");
 
 module.exports = {
   wss,
