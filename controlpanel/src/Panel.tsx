@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import styles from "./Panel.module.scss";
-import { FastForward, FastRewind, Pause, PlayArrow } from "@mui/icons-material";
+import { Add, FastForward, FastRewind, Pause, PlayArrow, PlusOne, Remove } from "@mui/icons-material";
 
 function Panel() {
   const [paused, setPaused] = useState(false);
@@ -61,15 +61,28 @@ function Panel() {
   return (
     <div className={styles.container}>
       <div className="settings"></div>
-      <div className={styles.buttons} style={{ backgroundImage: `url("${image}")` }}>
-        <div className={styles["icon-small"]}>
-          <FastRewind fontSize="inherit" />
-        </div>
-        <div className={styles["icon-big"]} onClick={handlePause}>
-          {paused ? <PlayArrow fontSize="inherit" /> : <Pause fontSize="inherit" />}
-        </div>
-        <div className={styles["icon-small"]}>
-          <FastForward fontSize="inherit" />
+      <div className={styles.control} style={{ backgroundImage: `url("${image}")` }}>
+        <div className={styles["gradient-overlay"]}>
+          <div className={styles.buttons}>
+            <div className={styles.icon}>
+              <FastRewind fontSize="inherit" />
+            </div>
+            <div className={styles.icon} onClick={handlePause}>
+              {paused ? <PlayArrow fontSize="inherit" /> : <Pause fontSize="inherit" />}
+            </div>
+            <div className={styles.icon} onClick={handleNew}>
+              <FastForward fontSize="inherit" />
+            </div>
+          </div>
+          <div className={styles.delay}>
+            <div className={styles.icon}>
+              <Add fontSize="inherit" />
+            </div>
+            <p>15s</p>
+            <div className={styles.icon}>
+              <Remove fontSize="inherit" />
+            </div>
+          </div>
         </div>
       </div>
     </div>
