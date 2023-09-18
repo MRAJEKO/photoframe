@@ -1,6 +1,6 @@
-npm i
-
 git pull - f
+
+npm i
 
 cd './controlpanel'
 
