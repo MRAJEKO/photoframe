@@ -1,3 +1,5 @@
+forever stop server.js
+
 git pull - f
 
 npm i
@@ -10,4 +12,4 @@ npm run build
 
 cd '..'
 
-npm run dev
+forever start server.js
