@@ -1,7 +1,7 @@
 {
   "scripts": {
     "start": "node server.js",
-    "update": "bash deploy.sh",
+    "update": "bash sudo deploy.sh",
     "dev": "npm-run-all --parallel server controlpaneldev",
     "server": "node server.js",
     "controlpaneldev": "cd controlpanel && npm run dev"
