@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import styles from "./Panel.module.scss";
 import { Add, FastForward, FastRewind, Pause, PlayArrow, Remove } from "@mui/icons-material";
+import config from "../../config.json";
 
 function Panel() {
   const [paused, setPaused] = useState(false);
@@ -8,7 +9,7 @@ function Panel() {
   const [image, setImage] = useState("");
 
   useEffect(() => {
-    fetch(`http://localhost:3000/api/data`)
+    fetch(`http://${process.env.DEV ? "localhost" : config.host}:${config.port}/api/data`)
       .then((res) => res.json())
       .then((data) => {
         const { paused, delay } = data;
@@ -20,7 +21,7 @@ function Panel() {
   }, []);
 
   useEffect(() => {
-    const socket = new WebSocket("ws://localhost:3000");
+    const socket = new WebSocket(`ws://${process.env.DEV ? "localhost" : config.host}:${config.port}`);
 
     socket.addEventListener("open", () => {
       console.log("Connected to the server.");
@@ -42,13 +43,13 @@ function Panel() {
   }, []);
 
   const handleNew = () => {
-    fetch("http://localhost:3000/api/refresh");
+    fetch(`http://${process.env.DEV ? "localhost" : config.host}:${config.port}/refresh`);
   };
 
   const handlePause = () => {
     console.log("pause");
 
-    fetch(`http://localhost:3000/api/pauseplay`, {
+    fetch(`http://${process.env.DEV ? "localhost" : config.host}:${config.port}/pauseplay`, {
       method: "POST",
     })
       .then((res) => res.json())
