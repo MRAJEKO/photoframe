@@ -1,6 +1,6 @@
 forever stop server.js
 
-git pull -f
+git pull --force
 
 npm i
 
