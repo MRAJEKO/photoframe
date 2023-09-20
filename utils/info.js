@@ -33,11 +33,9 @@ const getInfo = () => {
 
   const text = `${monthName(month)} '${year.slice(2)}`;
 
-  const prevImagePath = `${
-    process.env.DEV ? "http://localhost:3000" : `${config.host}:${config.port}`
-  }/images/${nextImage}`;
+  const prevImagePath = `http://${process.env.DEV ? "localhost:3000" : `192.168.0.111:3000`}/images/${nextImage}`;
 
-  const imagePath = `${process.env.DEV ? "http://localhost:3000" : `${config.host}:${config.port}`}/images/${image}`;
+  const imagePath = `http://${process.env.DEV ? "localhost:3000" : `192.168.0.111:3000`}/images/${image}`;
 
   return JSON.stringify({ image: imagePath, nextImage: prevImagePath, text });
 };
