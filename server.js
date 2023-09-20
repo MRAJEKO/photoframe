@@ -37,35 +37,18 @@ let delay = config.interval_rate;
 
 let intervalID;
 
-let nextImage = "";
-
-const updateNextImage = (name) => {
-  nextImage = name;
-};
-
-console.log(config.interval_rate);
-
 function startInterval() {
   intervalID = setInterval(() => {
     config = require("./config.json");
     delay = config.interval_rate;
 
-    sendInfo(wss, prevShownImages, nextImage);
+    sendInfo(wss);
   }, config.interval_rate);
 }
 
 function stopInterval() {
   clearInterval(intervalID);
 }
-
-const prevShownImages = [];
-
-const updatePrevShownImages = (name) => {
-  if (prevShownImages.length === config.refresh_threshold || prevShownImages.length === images.length)
-    prevShownImages.shift();
-
-  prevShownImages.push(name);
-};
 
 const server = http.createServer(app);
 
@@ -76,7 +59,7 @@ wss.on("connection", (ws) => {
 
   stopInterval();
 
-  sendInfo(wss, prevShownImages, nextImage);
+  sendInfo(wss);
 
   startInterval();
 });
@@ -88,10 +71,6 @@ server.listen(config.port, () => {
 module.exports = {
   wss,
   app,
-  prevShownImages,
-  updatePrevShownImages,
-  nextImage,
-  updateNextImage,
   paused,
   delay,
   startInterval,
