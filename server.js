@@ -39,6 +39,10 @@ let intervalID;
 
 let nextImage = "";
 
+const updateNextImage = (name) => {
+  nextImage = name;
+};
+
 console.log(config.interval_rate);
 
 function startInterval() {
@@ -55,6 +59,13 @@ function stopInterval() {
 }
 
 const prevShownImages = [];
+
+const updatePrevShownImages = (name) => {
+  if (prevShownImages.length === config.refresh_threshold || prevShownImages.length === images.length)
+    prevShownImages.shift();
+
+  prevShownImages.push(name);
+};
 
 const server = http.createServer(app);
 
@@ -78,7 +89,9 @@ module.exports = {
   wss,
   app,
   prevShownImages,
+  updatePrevShownImages,
   nextImage,
+  updateNextImage,
   paused,
   delay,
   startInterval,

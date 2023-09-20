@@ -2,6 +2,7 @@ const fs = require("fs");
 const path = require("path");
 const { monthName } = require("./months");
 const WebSocket = require("ws");
+const { updateNextImage, updatePrevShownImages } = require("../server");
 
 const extentions = [".jpg", ".png", ".webp", ".gif"];
 
@@ -13,20 +14,17 @@ const getInfo = (prevShownImages, nextImage) => {
 
   const config = require(path.join(__dirname, "../config.json"));
 
-  if (prevShownImages.length === config.refresh_threshold || prevShownImages.length === images.length)
-    prevShownImages.shift();
+  updatePrevShownImages(nextImage);
 
   const possibleImages = images.filter((image) => !prevShownImages.includes(image));
 
   const image = nextImage || possibleImages[Math.floor(Math.random() * possibleImages.length)];
 
-  nextImage = possibleImages[Math.floor(Math.random() * possibleImages.length)];
-
-  prevShownImages.push(image);
+  updateNextImage(possibleImages[Math.floor(Math.random() * possibleImages.length)]);
 
   const date = image.split("_")[0];
 
-  const [year, month, day] = date.split("-");
+  const [year, month] = date.split("-");
 
   const text = `${monthName(month)} '${year.slice(2)}`;
 
