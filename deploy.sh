@@ -1,6 +1,6 @@
 forever stop server.js
 
-git pull origin master --force
+git pull origin main --force
 
 npm i
 
