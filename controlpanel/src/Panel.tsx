@@ -1,17 +1,21 @@
 import { useEffect, useState } from "react";
 import styles from "./Panel.module.scss";
-import { Add, FastForward, FastRewind, Pause, PlayArrow, PlusOne, Remove } from "@mui/icons-material";
+import { Add, FastForward, FastRewind, Pause, PlayArrow, Remove } from "@mui/icons-material";
 
 function Panel() {
   const [paused, setPaused] = useState(false);
+  const [delay, setDelay] = useState(12);
   const [image, setImage] = useState("");
 
   useEffect(() => {
-    fetch(`http://localhost:3000/api/paused`)
+    fetch(`http://localhost:3000/api/data`)
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
-        setPaused(data.paused);
+        const { paused, delay } = data;
+
+        setPaused(paused);
+
+        setDelay(delay / 1000);
       });
   }, []);
 
@@ -23,7 +27,7 @@ function Panel() {
     });
 
     socket.addEventListener("message", (event) => {
-      const { text, image, nextImage } = JSON.parse(event.data);
+      const { image } = JSON.parse(event.data);
 
       setImage(image);
     });
@@ -38,11 +42,7 @@ function Panel() {
   }, []);
 
   const handleNew = () => {
-    console.log("click");
-
-    fetch("http://localhost:3000/api/refresh", {
-      method: "POST",
-    });
+    fetch("http://localhost:3000/api/refresh");
   };
 
   const handlePause = () => {
@@ -53,7 +53,6 @@ function Panel() {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         setPaused(data.paused);
       });
   };
@@ -78,7 +77,7 @@ function Panel() {
             <div className={styles.icon}>
               <Add fontSize="inherit" />
             </div>
-            <p>15s</p>
+            <p>{delay}s</p>
             <div className={styles.icon}>
               <Remove fontSize="inherit" />
             </div>

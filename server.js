@@ -32,6 +32,9 @@ app.get("/config.json", (_request, response) => {
   response.sendFile(path.join(__dirname, "config.json"));
 });
 
+let paused = false;
+let delay = config.interval_rate;
+
 let intervalID;
 
 let nextImage = "";
@@ -41,6 +44,8 @@ console.log(config.interval_rate);
 function startInterval() {
   intervalID = setInterval(() => {
     config = require("./config.json");
+    delay = config.interval_rate;
+
     sendInfo(wss, prevShownImages, nextImage);
   }, config.interval_rate);
 }
@@ -48,8 +53,6 @@ function startInterval() {
 function stopInterval() {
   clearInterval(intervalID);
 }
-
-let paused = false;
 
 const prevShownImages = [];
 
@@ -77,10 +80,11 @@ module.exports = {
   prevShownImages,
   nextImage,
   paused,
+  delay,
   startInterval,
   stopInterval,
 };
 
 require("./routes/pauseplay");
 require("./routes/refresh");
-require("./routes/paused");
+require("./routes/initialData");

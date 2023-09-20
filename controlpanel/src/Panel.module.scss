@@ -57,3 +57,24 @@
     }
   }
 }
+
+@media only screen and (max-width: 560px) {
+  .container {
+    .control {
+      width: 350px;
+
+      .gradient-overlay {
+        .icon {
+          font-size: 23px;
+          height: 23px;
+        }
+
+        .delay {
+          p {
+            font-size: 13px;
+          }
+        }
+      }
+    }
+  }
+}

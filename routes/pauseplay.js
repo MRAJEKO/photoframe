@@ -5,10 +5,11 @@ const { sendInfo } = require("../utils/info.js");
 app.post("/api/pauseplay", (_request, response) => {
   paused = !paused;
 
+  stopInterval();
+
   console.log(paused);
 
-  if (paused) stopInterval();
-  else {
+  if (!paused) {
     sendInfo(wss, prevShownImages, nextImage);
     startInterval();
   }
