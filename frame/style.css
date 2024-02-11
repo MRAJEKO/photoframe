@@ -28,8 +28,9 @@ img#loading {
 
 h1 {
   position: absolute;
-  bottom: 50px;
-  left: 70px;
+  bottom: 2.5vw;
+  left: 4vw;
+  font-size: 2.5vw;
   font-family: "Inter", sans-serif;
   font-weight: 600;
   color: white;
