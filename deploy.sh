@@ -3,7 +3,7 @@ forever stop server.js
 # Remove any changes to the code locally
 git reset --hard HEAD
 
-git pull --force
+git pull origin main --force
 
 # Install app packages for the root
 npm i
