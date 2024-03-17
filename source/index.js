@@ -10,10 +10,7 @@ function connectToSocket() {
   });
 
   socket.addEventListener("message", (event) => {
-    console.log(event);
     const { text, image, nextImage } = JSON.parse(event.data);
-
-    console.log(text);
 
     textContainer.textContent = text;
     imageContainer.src = image;

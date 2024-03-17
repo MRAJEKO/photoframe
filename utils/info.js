@@ -9,8 +9,6 @@ let nextImage = "";
 const prevShownImages = [];
 
 const getInfo = () => {
-  console.log(prevShownImages);
-
   const files = fs.readdirSync("./public/images");
   const images = files.filter((file) => extentions.includes(path.extname(file).toLowerCase()));
 

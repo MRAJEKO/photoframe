@@ -10,7 +10,6 @@ function connectToSocket() {
   };
 
   socket.onmessage = function (event) {
-    console.log(event);
     var data = JSON.parse(event.data);
 
     textContainer.innerHTML = data.text;
