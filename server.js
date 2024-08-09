@@ -12,6 +12,8 @@ const app = express();
 
 app.use(cors());
 
+app.use(express.json());
+
 app.use(express.static(path.join(__dirname, "./public")));
 
 if (!process.env.DEV)
@@ -42,11 +44,13 @@ app.get("/images", (_request, response) => {
 });
 
 app.post("/images", (request, response) => {
+  console.log(request.body);
+
   const { imageDescriptions } = request.body;
 
   fs.writeFileSync(
     path.join(__dirname, "public/image_descriptions.json"),
-    imageDescriptions
+    JSON.stringify(imageDescriptions)
   );
 
   response.send("Success");
