@@ -27,13 +27,29 @@ app.get("/", (_request, response) => {
 });
 
 app.get("/images", (_request, response) => {
+  const imageDescriptions = fs.readFileSync(
+    path.join(__dirname, "public/image_descriptions.json"),
+    "utf8"
+  );
+
   const files = fs.readdirSync(path.join(__dirname, "public/images"));
 
   const images = files.filter((file) =>
     extentions.includes(path.extname(file).toLowerCase())
   );
 
-  response.send(images);
+  response.send({ imageDescriptions, images });
+});
+
+app.post("/images", (request, response) => {
+  const { imageDescriptions } = request.body;
+
+  fs.writeFileSync(
+    path.join(__dirname, "public/image_descriptions.json"),
+    imageDescriptions
+  );
+
+  response.send("Success");
 });
 
 app.get("/index.js", (_request, response) => {
