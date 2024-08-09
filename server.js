@@ -40,7 +40,7 @@ app.get("/images", (_request, response) => {
     extentions.includes(path.extname(file).toLowerCase())
   );
 
-  response.send({ imageDescriptions, images });
+  response.send({ imageDescriptions: JSON.parse(imageDescriptions), images });
 });
 
 app.post("/images", (request, response) => {
