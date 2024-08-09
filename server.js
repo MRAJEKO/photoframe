@@ -14,18 +14,34 @@ app.use(cors());
 
 app.use(express.static(path.join(__dirname, "./public")));
 
-if (!process.env.DEV) app.use("/control", express.static(path.join(__dirname, "./controlpanel/dist")));
+if (!process.env.DEV)
+  app.use(
+    "/control",
+    express.static(path.join(__dirname, "./controlpanel/dist"))
+  );
 
 app.get("/", (_request, response) => {
-  response.sendFile(path.join(__dirname, process.env.DEV ? "source" : "frame", "index.html"));
+  response.sendFile(
+    path.join(__dirname, process.env.DEV ? "source" : "frame", "index.html")
+  );
+});
+
+app.get("/images", (_request, response) => {
+  const files = fs.readdirSync(path.join(__dirname, "public/images"));
+
+  response.send(files);
 });
 
 app.get("/index.js", (_request, response) => {
-  response.sendFile(path.join(__dirname, process.env.DEV ? "source" : "frame", "index.js"));
+  response.sendFile(
+    path.join(__dirname, process.env.DEV ? "source" : "frame", "index.js")
+  );
 });
 
 app.get("/style.css", (_request, response) => {
-  response.sendFile(path.join(__dirname, process.env.DEV ? "source" : "frame", "style.css"));
+  response.sendFile(
+    path.join(__dirname, process.env.DEV ? "source" : "frame", "style.css")
+  );
 });
 
 app.get("/config.json", (_request, response) => {
