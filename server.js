@@ -6,7 +6,7 @@ const cors = require("cors");
 const WebSocket = require("ws");
 const http = require("http");
 let config = require("./config.json");
-const { sendInfo } = require("./utils/info");
+const { sendInfo, extentions } = require("./utils/info");
 
 const app = express();
 
@@ -29,7 +29,11 @@ app.get("/", (_request, response) => {
 app.get("/images", (_request, response) => {
   const files = fs.readdirSync(path.join(__dirname, "public/images"));
 
-  response.send(files);
+  const images = files.filter((file) =>
+    extentions.includes(path.extname(file).toLowerCase())
+  );
+
+  response.send(images);
 });
 
 app.get("/index.js", (_request, response) => {
